@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Container,
   Table,
   InputGroup,
   InputGroupAddon,
@@ -9,31 +8,36 @@ import {
   Row,
   Col
 } from "reactstrap";
+import { withRouter } from "react-router-dom";
 // Services
 import ArtistService from "../../services/artist.service";
 // Assets
 import noImageAvailable from "../../assets/noimage.jpg";
 // Components
 import Spinner from "../General/Spinner";
+import Container from "../General/Container";
+// Styles
+import styles from "./styles.css";// eslint-disable-line
 
-export default class SearchArtists extends Component {
+class SearchArtists extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       artists: [],
-      name: ""
+      name: "",
+      requesting: false
     };
   }
 
   renderRow = artist => {
     return (
-      <tr key={artist.id}>
-        <td key={`image-${artist.id}`}>
+      <tr onClick={() => this.handleClickTr(artist.id)} key={artist.id}>
+        <td className="middle" key={`image-${artist.id}`}>
           {
             <img
               alt="img"
-              style={{ width: "100px", height: "100px", objectFit: "cover" }}
+              className="image"
               src={
                 artist.images && artist.images.length
                   ? artist.images[0].url
@@ -42,22 +46,27 @@ export default class SearchArtists extends Component {
             />
           }
         </td>
-        <td key={`name-${artist.id}`}>{artist.name}</td>
-        <td key={`follow-${artist.id}`}>
+        <td className="middle">{artist.name}</td>
+        <td className="middle">
           {artist.followers ? artist.followers.total : 0}
         </td>
-        <td key={`genre-${artist.id}`}>{artist.genres.join(",")}</td>
-        <td key={`popular-${artist.id}`}>{artist.popularity}</td>
-        <td key={`uri-${artist.id}`}>{artist.uri}</td>
+        <td className="middle">{artist.genres.join(",")}</td>
+        <td className="middle">{artist.popularity}</td>
+        <td className="middle">{artist.uri}</td>
       </tr>
     );
+  };
+
+  handleClickTr = id => {
+    const { history } = this.props; // eslint-disable-line
+    history.push(`artist/${id}`); // eslint-disable-line
   };
 
   search = async () => {
     const { name } = this.state;
     this.setState({ requesting: true });
     const res = await ArtistService.searchArtistsByName(name).catch(e => {
-      console.log("error====> ", e);
+      console.log("error====> ", e); // eslint-disable-line
       this.setState({ requesting: false });
     }); // need to manage errors
 
@@ -82,7 +91,7 @@ export default class SearchArtists extends Component {
     const big = { size: 3, offset: 9 };
 
     return (
-      <Container fluid>
+      <Container>
         <Row style={{ marginBottom: "20px" }}>
           <Col xs={small} sm={small} md={small} lg={big} xl={big}>
             <InputGroup>
@@ -114,9 +123,11 @@ export default class SearchArtists extends Component {
             <tbody>{artists.map(artist => this.renderRow(artist))}</tbody>
           </Table>
         ) : (
-          <p>Search Artists in Spotify</p>
+          <p style={{ color: "white" }}>Search Artists in Spotify</p>
         )}
       </Container>
     );
   }
 }
+
+export default withRouter(SearchArtists);
