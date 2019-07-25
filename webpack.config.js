@@ -1,15 +1,14 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const webpack = require('webpack');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-const outputDirectory = 'dist';
+const outputDirectory = "dist";
 
 module.exports = {
-  entry: ['babel-polyfill', './src/index.js'],
+  entry: ["babel-polyfill", "./src/index.js"],
   output: {
     path: path.join(__dirname, outputDirectory),
-    filename: 'bundle.js'
+    filename: "bundle.js"
   },
   module: {
     rules: [
@@ -17,23 +16,17 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: "babel-loader"
         }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ["style-loader", "css-loader"]
       },
       {
-        test: /\.(png|woff|woff2|eot|ttf|otf|svg)$/,
-        loader: 'url-loader'
-      },
-      {
-        test: /\.(mov|mp4)$/,
-        use: [
-          'file-loader'
-        ]
-      },
+        test: /\.(jpg|jpeg|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+        loader: "url-loader"
+      }
     ]
   },
   devServer: {
@@ -41,13 +34,13 @@ module.exports = {
     open: true,
     hot: true,
     proxy: {
-      '/api': 'http://localhost:8080'
+      "/api": "http://localhost:8080"
     }
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: "./public/index.html"
     })
   ]
 };

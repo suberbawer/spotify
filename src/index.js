@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, hashHistory } from "react-router";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import App from "./components/App";
 import "bootstrap/dist/css/bootstrap.css";
 
 ReactDOM.render(
-  <Router history={hashHistory}>
+  <Router>
     <Route path="/" component={App} />
   </Router>,
 

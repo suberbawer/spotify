@@ -1,0 +1,17 @@
+.background {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: black;
+  opacity: 0.8;
+  flex: 1;
+  z-index: 999;
+}
+.spinner {
+  margin-left: 50%;
+  margin-top: 25%;
+  width: 3.5em !important;
+  height: 3.5em !important;
+}
