@@ -4,7 +4,15 @@ const path = "https://api.spotify.com/v1/";
 
 export default class ArtistService {
   static searchArtistsByName = name => {
-    return axiosInstance.get(`${path}search?q=${name}&type=artist`);
+    return axiosInstance.get(
+      `${path}search?q=${name.replace(" ", "%20")}&type=artist`
+    );
+  };
+
+  static searchTracksByName = name => {
+    return axiosInstance.get(
+      `${path}search?q=${name.replace(" ", "%20")}&type=track`
+    );
   };
 
   static getArtistAlbums = artistId => {

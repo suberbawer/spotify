@@ -32,7 +32,11 @@ class SearchArtists extends Component {
 
   renderRow = artist => {
     return (
-      <tr onClick={() => this.handleClickTr(artist.id)} key={artist.id}>
+      <tr
+        onClick={() => this.handleClickTr(artist.id)}
+        key={artist.id}
+        style={{ cursor: "pointer" }}
+      >
         <td className="middle" key={`image-${artist.id}`}>
           {
             <img
@@ -50,7 +54,7 @@ class SearchArtists extends Component {
         <td className="middle">
           {artist.followers ? artist.followers.total : 0}
         </td>
-        <td className="middle">{artist.genres.join(",")}</td>
+        <td className="middle">{artist.genres.join(", ")}</td>
         <td className="middle">{artist.popularity}</td>
         <td className="middle">{artist.uri}</td>
       </tr>
@@ -59,7 +63,7 @@ class SearchArtists extends Component {
 
   handleClickTr = id => {
     const { history } = this.props; // eslint-disable-line
-    history.push(`artist/${id}`); // eslint-disable-line
+    history.push(`/artist/${id}`); // eslint-disable-line
   };
 
   search = async () => {
@@ -109,7 +113,12 @@ class SearchArtists extends Component {
         {requesting && <Spinner />}
 
         {artists && artists.length ? (
-          <Table dark responsive hover>
+          <Table
+            dark
+            responsive
+            hover
+            style={{ backgroundColor: "transparent" }}
+          >
             <thead>
               <tr>
                 <th />

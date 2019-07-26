@@ -8,7 +8,7 @@ export default class App extends PureComponent {
   render() {
     return (
       <Container fluid className="p-0" style={{ fontSize: "14px" }}>
-        <Menu menuItems={[{ name: "Search", link: "search" }]} />
+        <Menu menuItems={[{ name: "Search", link: "/search" }]} />
         <Main />
       </Container>
     );

@@ -6,7 +6,7 @@ const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use(
   async req => {
     const accessToken =
-      "BQClV9rm4AhNELxxtTkku9xYzstH9ks2zhqAw12-i7rY89saXEF9SZ2Ur0jXT9SfVIgYmLt5P7Fdi5p6aCs"; // ned to ask in home page
+      "BQB7paxdHQayrVXYb3s7QI41NGAKvsNiI9L2ogRRmZViaFL50aK6G3v4kP75nCXgmlT-EpamLX2sYHvD_5A"; // ned to ask in home page
 
     // if token is found add it to the header
     if (accessToken) {

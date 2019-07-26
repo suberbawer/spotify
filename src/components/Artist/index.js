@@ -27,7 +27,7 @@ export default class Artist extends Component {
 
     if (res && res.status === 200) {
       const albums = res.data && res.data.items ? res.data.items : [];
-      // Get tracks from albums
+      // Get top tracks
       res = await ArtistService.getTopTracks(params.artistId).catch(e => {
         console.log("error====> ", e); // eslint-disable-line
         this.setState({ requesting: false });
@@ -45,6 +45,7 @@ export default class Artist extends Component {
 
   render() {
     const { tracks, albums, requesting } = this.state;
+
     return (
       <Container>
         {requesting && <Spinner />}

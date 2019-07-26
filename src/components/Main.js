@@ -10,7 +10,7 @@ export default class Main extends PureComponent {
     return (
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/search" component={SearchArtists} />
+        <Route path="/search" component={SearchArtists} />
         <Route path="/artist/:artistId" component={Artist} />
       </Switch>
     );

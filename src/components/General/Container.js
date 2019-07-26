@@ -12,7 +12,7 @@ export default class AppContainer extends PureComponent {
       <Container
         fluid
         style={{
-          backgroundColor: "rgba(0,0,0,0.7)",
+          backgroundColor: "rgba(0,0,0,0.9)",
           position: "absolute",
           minHeight: "100%",
           paddingTop: "80px"
