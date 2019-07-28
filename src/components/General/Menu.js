@@ -1,81 +1,76 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem
-} from "reactstrap";
+import React, { PureComponent } from "react";
+import { Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
+import { IoMdHome, IoMdMusicalNotes, IoMdMicrophone } from "react-icons/io";
+// Assets
+import logo from "../../assets/spotify.gif";
 
-export default class Menu extends Component {
+export default class Menu extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isOpen: false,
-      color: "dark"
-    };
+    this.state = { active: 1 };
   }
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
-  handleScroll = () => {
-    const top =
-      document.documentElement.scrollTop - 100 ||
-      document.body.parentNode.scrollTop - 100 ||
-      document.body.scrollTop - 100;
-
-    this.setState({ color: top < 1 ? "dark" : "" });
-  };
-
-  toggle = () => {
-    const { isOpen } = this.state;
+  setActive = index => {
     this.setState({
-      isOpen: !isOpen
+      active: index
     });
   };
 
+  setClass = i => {
+    const { active } = this.state;
+    let cls = "link ";
+    if (active === i) {
+      cls = `${cls} menu-item-active`;
+    }
+    return cls;
+  };
+
   render() {
-    const { menuItems } = this.props;
-    const { color, isOpen } = this.state;
-
     return (
-      <div>
-        <Navbar
-          color={color}
-          dark
-          style={{ position: "fixed", width: "100%", zIndex: 2 }}
-          expand="lg"
-        >
-          <NavbarToggler onClick={this.toggle} />
-          <NavbarBrand href="#parent">Spotify</NavbarBrand>
-
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              {menuItems.map(item => (
-                <NavItem key={item.name}>
-                  <Link to={item.link} className="nav-link">
-                    {item.name}
-                  </Link>
-                </NavItem>
-              ))}
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
+      <Container fluid className="p-0" style={{ backgroundColor: "#000" }}>
+        <Row>
+          <img alt="logo" src={logo} style={{ width: "100%", height: "50%" }} />
+        </Row>
+        <Row style={{ paddingTop: "100px" }}>
+          <Row className={this.setClass(1)} style={{ width: "100%" }}>
+            <div className="menu-icon">
+              <IoMdHome />
+            </div>
+            <Link
+              to="/"
+              onClick={() => this.setActive(1)}
+              className="nav-link link"
+            >
+              Home
+            </Link>
+          </Row>
+          <Row className={this.setClass(2)} style={{ width: "100%" }}>
+            <div className="menu-icon">
+              <IoMdMicrophone />
+            </div>
+            <Link
+              to="/search-artists"
+              onClick={() => this.setActive(2)}
+              className="nav-link link"
+            >
+              Artists
+            </Link>
+          </Row>
+          <Row className={this.setClass(3)} style={{ width: "100%" }}>
+            <div className="menu-icon">
+              <IoMdMusicalNotes />
+            </div>
+            <Link
+              to="/search-tracks"
+              onClick={() => this.setActive(3)}
+              className="nav-link link"
+            >
+              Tracks
+            </Link>
+          </Row>
+        </Row>
+      </Container>
     );
   }
 }
-
-Menu.propTypes = {
-  menuItems: PropTypes.array.isRequired // eslint-disable-line
-};

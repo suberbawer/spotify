@@ -5,3 +5,8 @@
   position: absolute;
   height: 100%;
 }
+
+.home-btn {
+  border-radius: 500px;
+  padding: 10px 48px;
+}

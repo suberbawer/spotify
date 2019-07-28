@@ -1,12 +1,16 @@
+// MIDDLEWARE
 import axios from "axios";
+import store from "../store";
+import { toggleTokenModal } from "../actions";
 
 // Add a request interceptor
 const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(
   async req => {
+    const state = store.getState();
     const accessToken =
-      "BQB7paxdHQayrVXYb3s7QI41NGAKvsNiI9L2ogRRmZViaFL50aK6G3v4kP75nCXgmlT-EpamLX2sYHvD_5A"; // ned to ask in home page
+      state && state.generalReducer ? state.generalReducer.token : null;
 
     // if token is found add it to the header
     if (accessToken) {
@@ -27,6 +31,9 @@ axiosInstance.interceptors.response.use(
   },
   error => {
     // token expired
+    if (error.response && error.response.status === 401) {
+      store.dispatch(toggleTokenModal());
+    }
     return Promise.reject(error);
   }
 );

@@ -9,10 +9,8 @@ export default class ArtistService {
     );
   };
 
-  static searchTracksByName = name => {
-    return axiosInstance.get(
-      `${path}search?q=${name.replace(" ", "%20")}&type=track`
-    );
+  static getArtist = artistId => {
+    return axiosInstance.get(`${path}artists/${artistId}`);
   };
 
   static getArtistAlbums = artistId => {

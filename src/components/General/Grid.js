@@ -27,17 +27,29 @@ export default class Grid extends PureComponent {
   };
 
   render() {
-    const { elements } = this.props;
+    const { elements, track } = this.props;
 
     return (
       <Container fluid>
         <Row>
           {elements.map(el => {
             return (
-              <Col xs="6" sm="6" md="6" lg="3" style={{ marginBottom: "10px" }}>
+              <Col
+                xs="6"
+                sm="6"
+                md="6"
+                lg="3"
+                xl="3"
+                style={{ marginBottom: "20px" }}
+                key={el.id}
+              >
                 <Row>
-                  <div style={{ width: "50px" }}>
-                    <img alt="img" className="image" src={this.getImage(el)} />
+                  <div style={track ? { width: "50px" } : {}}>
+                    <img
+                      alt="img"
+                      className={track ? "track-img" : "album-img"}
+                      src={this.getImage(el)}
+                    />
                   </div>
                   <Col className="grid-info-col">
                     <Row
