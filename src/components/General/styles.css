@@ -50,7 +50,8 @@
 }
 .search-row {
   position: sticky;
-  width: 100%;
+  margin-right: -15px;
+  margin-left: -15px;
   z-index: 999;
   top: 0;
 }
@@ -87,9 +88,13 @@
 .album-img {
   width: 90%;
   height: 90%;
-  object-fit: cover;
+  object-fit: contain;
 }
-.mb-40 {
-  color: #fff;
-  margin-bottom: 40px !important;
+.grid-element {
+  margin-bottom: 20px;
+  cursor: pointer;
 }
+.grid-element:hover {
+  opacity: 0.7;
+}
+

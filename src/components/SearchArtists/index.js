@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { Table } from "reactstrap";
 import { withRouter } from "react-router-dom";
 // Services
 import ArtistService from "../../services/artist.service";
@@ -23,6 +22,10 @@ class SearchArtists extends Component {
     };
   }
 
+  formatFollowers = followers => {
+    return followers.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  };
+
   renderRow = artist => {
     return (
       <tr
@@ -44,11 +47,13 @@ class SearchArtists extends Component {
           }
         </td>
         <td className="middle">{artist.name}</td>
-        <td className="middle">
-          {artist.followers ? artist.followers.total : 0}
-        </td>
         <td className="middle">{artist.genres.join(", ")}</td>
-        <td className="middle">{artist.popularity}</td>
+        <td className="middle" style={{ color: "gray" }}>
+          {artist.followers ? this.formatFollowers(artist.followers.total) : 0}
+        </td>
+        <td className="middle" style={{ color: "gray", textAlign: "center" }}>
+          {artist.popularity}
+        </td>
       </tr>
     );
   };
@@ -87,7 +92,7 @@ class SearchArtists extends Component {
 
         <ListItems
           items={artists}
-          titles={["", "Name", "Followers", "Genres", "Popularity"]}
+          titles={["", "Name", "Genres", "Followers", "Popularity"]}
           emptyMessage="Find your favorite artists"
           renderRow={this.renderRow}
         />

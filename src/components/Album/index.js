@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row } from "reactstrap";
+import { Row } from "reactstrap";
 // Services
 import AlbumService from "../../services/album.service";
 // Assets
@@ -8,6 +8,7 @@ import noImage from "../../assets/noimage.jpg";
 import Spinner from "../General/Spinner";
 import Container from "../General/Container";
 import ListItems from "../General/ListItems";
+import Header from "../General/Header";
 
 class Album extends Component {
   constructor(props) {
@@ -26,11 +27,14 @@ class Album extends Component {
   renderRow = track => {
     return (
       <tr key={track.id}>
-        <td className="middle" style={{ width: "40px" }}>
+        <td className="middle" style={{ width: "40px", color: "gray" }}>
           {track.track_number}
         </td>
         <td className="middle">{track.name}</td>
-        <td className="middle" style={{ width: "50px" }}>
+        <td
+          className="middle"
+          style={{ width: "50px", color: "gray", textAlign: "center" }}
+        >
           {this.getDuration(track.duration_ms)}
         </td>
       </tr>
@@ -66,6 +70,21 @@ class Album extends Component {
     }
   };
 
+  getArtistsNames = artists => {
+    return artists.map(artist => artist.name).join(", ");
+  };
+
+  getInfo = () => {
+    const { album } = this.state;
+    const year = album.release_date.slice(0, 4);
+    const tracks =
+      album.total_tracks > 1
+        ? `${album.total_tracks} songs`
+        : `${album.total_tracks} song`;
+
+    return `${year} - ${tracks}`;
+  };
+
   render() {
     const { album, requesting } = this.state;
 
@@ -74,24 +93,13 @@ class Album extends Component {
         {requesting && <Spinner />}
         {album && (
           <Row>
-            <Row style={{ width: "100%" }}>
-              <div style={{ width: "150px", textAlign: "center" }}>
-                <img
-                  alt="album"
-                  style={{
-                    marginBottom: "10px",
-                    height: "150px",
-                    width: "150px"
-                  }}
-                  src={album.images ? album.images[0].url : noImage}
-                />
-                <span>{album.name}</span>
-              </div>
-              <Col>
-                <Row>information!</Row>
-              </Col>
-            </Row>
-
+            <Header
+              imageUrl={album.images ? album.images[0].url : noImage}
+              type="ALBUM"
+              title={album.name}
+              name={this.getArtistsNames(album.artists)}
+              extraInfo={this.getInfo()}
+            />
             <ListItems
               items={album.tracks.items}
               titles={["", "Title", "Duration"]}

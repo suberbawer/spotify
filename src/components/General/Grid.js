@@ -1,12 +1,13 @@
 import React, { PureComponent } from "react";
 import { Col, Row, Container } from "reactstrap";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 // Styles
 import styles from "./styles.css";// eslint-disable-line
 // Assets
 import noimage from "../../assets/noimage.jpg";
 
-export default class Grid extends PureComponent {
+class Grid extends PureComponent {
   renderArtists = artists => {
     return artists.map(artist => artist.name).join(", ");
   };
@@ -26,6 +27,12 @@ export default class Grid extends PureComponent {
     return image;
   };
 
+  handleClick = el => {
+    const { track, history } = this.props; // eslint-disable-line
+    const albumId = track ? el.album.id : el.id;
+    history.push(`/album/${albumId}`); // eslint-disable-line
+  };
+
   render() {
     const { elements, track } = this.props;
 
@@ -40,8 +47,9 @@ export default class Grid extends PureComponent {
                 md="6"
                 lg="3"
                 xl="3"
-                style={{ marginBottom: "20px" }}
+                className="grid-element"
                 key={el.id}
+                onClick={() => this.handleClick(el)}
               >
                 <Row>
                   <div style={track ? { width: "50px" } : {}}>
@@ -80,3 +88,5 @@ Grid.propTypes = {
 Grid.defaultProps = {
   track: false
 };
+
+export default withRouter(Grid);

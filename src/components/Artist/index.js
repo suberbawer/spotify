@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Col, Row } from "reactstrap";
+import { Row } from "reactstrap";
 // Services
 import ArtistService from "../../services/artist.service";
 // Components
 import Spinner from "../General/Spinner";
 import Container from "../General/Container";
 import Grid from "../General/Grid";
+import Header from "../General/Header";
 // Assets
 import noImage from "../../assets/noimage.jpg";
 
@@ -67,35 +68,12 @@ export default class Artist extends Component {
         {requesting && <Spinner />}
 
         {artist && (
-          <Row>
-            <div style={{ width: "150px", textAlign: "center" }}>
-              <img
-                alt="artist"
-                style={{
-                  marginBottom: "10px",
-                  height: "150px",
-                  width: "150px",
-                  borderRadius: "50%"
-                }}
-                src={artist.images ? artist.images[0].url : noImage}
-              />
-              <span>{artist.name}</span>
-            </div>
-            <Col>
-              <Row>
-                Followers:
-                {artist.followers.total}
-              </Row>
-              <Row>
-                Genres:
-                {artist.genres.join(", ")}
-              </Row>
-              <Row>
-                Popularity:
-                {artist.popularity}
-              </Row>
-            </Col>
-          </Row>
+          <Header
+            imageUrl={artist.images ? artist.images[0].url : noImage}
+            type="ARTIST"
+            title={artist.name}
+            followers={artist.followers.total}
+          />
         )}
 
         {tracks && (

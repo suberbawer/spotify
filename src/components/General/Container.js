@@ -14,8 +14,7 @@ export default class AppContainer extends PureComponent {
         style={{
           backgroundColor: "#0A0A0A",
           height: "100%",
-          overflow: "auto",
-          padding: 0
+          overflow: "auto"
         }}
       >
         {children}

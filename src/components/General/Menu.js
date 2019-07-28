@@ -1,15 +1,30 @@
 import React, { PureComponent } from "react";
 import { Container, Row } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { IoMdHome, IoMdMusicalNotes, IoMdMicrophone } from "react-icons/io";
 // Assets
 import logo from "../../assets/spotify.gif";
 
-export default class Menu extends PureComponent {
+class Menu extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { active: 1 };
+    this.state = {
+      active: this.getActiveInitialIndex()
+    };
   }
+
+  getActiveInitialIndex = () => {
+    const { location } = this.props; // eslint-disable-line
+    let index = 1;
+
+    if (location.pathname.indexOf("artists") > -1) { // eslint-disable-line
+      index = 2;
+    }
+    if (location.pathname.indexOf("tracks") > -1) { // eslint-disable-line
+      index = 3;
+    }
+    return index;
+  };
 
   setActive = index => {
     this.setState({
@@ -74,3 +89,5 @@ export default class Menu extends PureComponent {
     );
   }
 }
+
+export default withRouter(Menu);

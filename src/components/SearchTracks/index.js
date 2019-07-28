@@ -27,7 +27,11 @@ class SearchTracks extends Component {
         key={track.id}
         style={{ cursor: "pointer" }}
       >
-        <td className="middle" key={`image-${track.id}`}>
+        <td
+          className="middle"
+          style={{ width: "50px" }}
+          key={`image-${track.id}`}
+        >
           {
             <img
               alt="img"
@@ -42,9 +46,13 @@ class SearchTracks extends Component {
         </td>
         <td className="middle">{track.album.name}</td>
         <td className="middle">{track.name}</td>
-        <td className="middle">{this.getDuration(track.duration_ms)}</td>
         <td className="middle">{track.album.release_date}</td>
-        <td className="middle">{track.popularity}</td>
+        <td className="middle" style={{ color: "gray", textAlign: "center" }}>
+          {track.popularity}
+        </td>
+        <td className="middle" style={{ color: "gray", textAlign: "center" }}>
+          {this.getDuration(track.duration_ms)}
+        </td>
       </tr>
     );
   };
@@ -100,9 +108,9 @@ class SearchTracks extends Component {
             "",
             "Album",
             "Title",
-            "Duration",
             "Release Date",
-            "Popularity"
+            "Popularity",
+            "Duration"
           ]}
           emptyMessage="Find your favorite tracks"
           renderRow={this.renderRow}
