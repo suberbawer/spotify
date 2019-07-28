@@ -1,0 +1,16 @@
+.row {
+  margin: 0 !important;
+}
+div[class*="col"] {
+  padding: 0 !important;
+}
+.container-fluid {
+  height: 100%;
+}
+.btn-primary-green {
+  background-color: #1DB954;
+  border: none;
+}
+.btn-primary-green:hover {
+  background-color: #1ED760;
+}
