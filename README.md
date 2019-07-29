@@ -25,7 +25,12 @@
 ```
 	npm run dev
 ```
-
+### Run Tests
+- Must run "npm run dev" first.
+- I only have created 2 tests to show how it can be done, too much time in to create tests for all components.
+```
+	npm run test or npm test
+```
 ### Usage
 
 - You'll need to add your test token by screen, since I didn't create any server logical to manage oauth
